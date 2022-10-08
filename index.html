@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Petición JS</title>
+<meta charset="utf-8">
+<style type="text/css">
+.thumb_cocktail {
+width: 100%;
+border-radius: 100rem;
+
+}
+.name_cocktail {
+margin-top: 1.5rem;
+text-align: center;
+}
+
+#contenedor {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+grid-gap: 1rem;
+}
+
+.cocktail {
+width: 100%;
+
+}
+</style>
+</head>
+<body>
+<input type="text" name="search" id="search">
+
+
+<button class="MyBoton" id="MyMyBoton">Ejecutar</button>
+<div id="contenedor">
+
+</div>
+
+<script type="text/javascript">
+
+function ciclo(cantidad){
+
+for(let i=0; i<cantidad;i++) {
+
+console.log("Iteración " + i);
+}
+}
+
+function pintar(data) {
+contenedor = document.querySelector("#contenedor");
+contenedor.innerHTML = "";
+for (let json in data.drinks){
+drink = data.drinks[json];
+contenedor.innerHTML = contenedor.innerHTML + "<div class='cocktail'><img class= 'thumb_cocktail' src='" + drink.strDrinkThumb + "'/><div class='name_cocktail'>" + drink.strDrink + "</div></div>";
+
+}
+}
+
+boton = document.querySelector(".MyBoton")
+
+boton.onclick = function() {
+
+let search = document.getElementById("search");
+
+fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s='+search.value)
+  .then(response => response.json())
+  .then(data => pintar(data));
+
+}
+
+
+
+
+</script>
+
+</body>
+</html>
